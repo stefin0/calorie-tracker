@@ -1,8 +1,4 @@
-# React + Vite
+# Calorie Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## What is it?
+Calorie tracker is a website that calculates the calories that you need to eat per day in order to achieve your goals. Your calories will be calculated using the Mifflin-St. Jeor Equation. Factors include: sex, current weight, height, age, estimated body fat composition, lifestyle and training frequency, gym experience level, and your goal to lose fat and/or build muscle. 

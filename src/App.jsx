@@ -1,4 +1,4 @@
-import CalorieCalculator from "./CalorieCalulator";
+import CalorieCalculator from "./CalorieCalculator";
 
 function App() {
   return (
