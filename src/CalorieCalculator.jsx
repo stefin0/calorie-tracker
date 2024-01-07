@@ -2,11 +2,14 @@ import { useState } from "react";
 import Style from "./CalorieCalculator.module.css";
 
 function CalorieCalculator() {
-  const [result, setResult] = useState("");
   const [formData, setFormData] = useState({
-    num1: "",
-    num2: "",
+    gender: "male",
+    weight: "",
+    height: "",
+    age: "",
   });
+
+  const [bmr, setBmr] = useState(0);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -16,41 +19,72 @@ function CalorieCalculator() {
     }));
   }
 
-  function calcTwoNum(e) {
+  function calculateBMR(e) {
     e.preventDefault();
-
-    setResult(+formData.num1 + +formData.num2);
+    const { gender, weight, height, age } = formData;
+    if (gender === "male") {
+      setBmr((10 * weight + 6.25 * height - 5 * age + 5).toFixed());
+    } else if (gender === "female") {
+      setBmr((10 * weight + 6.25 * height - 5 * age - 161).toFixed());
+    }
   }
 
   return (
-    <form onSubmit={calcTwoNum} className={Style.form}>
+    <form onSubmit={calculateBMR} className={Style.form}>
+      {/*GENDER input*/}
       <div className={Style.group}>
-        <label htmlFor="num1">Number 1</label>
+        <label htmlFor="gender">Gender</label>
+        <select id="gender" name="gender" onChange={handleChange}>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      {/*WEIGHT input*/}
+      <div className={Style.group}>
+        <label htmlFor="weight">Weight</label>
         <input
+          id="weight"
+          name="weight"
           type="number"
-          id="num1"
-          name="num1"
+          placeholder="Current kg"
           onChange={handleChange}
-          value={formData.num1}
+          value={formData.weight}
           required
         />
       </div>
 
+      {/*HEIGHT input*/}
       <div className={Style.group}>
-        <label htmlFor="num2">Number 2</label>
+        <label htmlFor="height">Height</label>
         <input
+          id="height"
+          name="height"
           type="number"
-          id="num2"
-          name="num2"
+          placeholder="Height (cm)"
           onChange={handleChange}
-          value={formData.num2}
+          value={formData.height}
           required
         />
       </div>
 
-      <button>Calculate</button>
+      {/*AGE input*/}
+      <div className={Style.group}>
+        <label htmlFor="age">Age</label>
+        <input
+          id="age"
+          name="age"
+          type="number"
+          placeholder="Age"
+          onChange={handleChange}
+          value={formData.age}
+          required
+        />
+      </div>
 
-      <p>Total Calories: {result}</p>
+      <button>Calculate BMR</button>
+
+      <p>Your BMR is {bmr}</p>
     </form>
   );
 }
