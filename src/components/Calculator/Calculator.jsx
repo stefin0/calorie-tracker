@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Style from "./CalorieCalculator.module.css";
+import Style from "./Calculator.module.css";
 
-function CalorieCalculator() {
+function Calculator() {
   const [formData, setFormData] = useState({
     gender: "male",
     weight: "",
@@ -89,4 +89,4 @@ function CalorieCalculator() {
   );
 }
 
-export default CalorieCalculator;
+export default Calculator;
