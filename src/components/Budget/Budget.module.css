@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: conic-gradient(black 3.6deg, grey 0deg);
+  background: conic-gradient(black 0deg, grey 0deg);
   width: 250px;
   height: 250px;
   border-radius: 50%;

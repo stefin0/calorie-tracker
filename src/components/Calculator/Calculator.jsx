@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Style from "./Calculator.module.css";
 
 function Calculator() {
@@ -9,7 +9,9 @@ function Calculator() {
     age: "",
   });
 
-  const [bmr, setBmr] = useState(0);
+  const [bmr, setBmr] = useState(() => {
+    return JSON.parse(localStorage.getItem("bmr")) || "0";
+  });
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -28,6 +30,10 @@ function Calculator() {
       setBmr((10 * weight + 6.25 * height - 5 * age - 161).toFixed());
     }
   }
+
+  useEffect(() => {
+    localStorage.setItem("bmr", JSON.stringify(bmr));
+  }, [bmr]);
 
   return (
     <form onSubmit={calculateBMR} className={Style.form}>

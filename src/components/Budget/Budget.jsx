@@ -2,22 +2,27 @@ import { useEffect, useState } from "react";
 import Style from "./Budget.module.css";
 
 function Budget() {
-  const [number, setNumber] = useState(() => {
-    return JSON.parse(localStorage.getItem("number")) || "0";
+  const [caloriesEaten, setCaloriesEaten] = useState(() => {
+    return JSON.parse(localStorage.getItem("caloriesEaten")) || "0";
   });
+  const [caloriesTotal, setCaloriesTotal] = useState(() => {
+    return JSON.parse(localStorage.getItem("bmr")) || "0";
+  });
+  const [caloriesRatio, setCaloriesRatio] = useState();
   const [input, setInput] = useState();
 
   function handleSetInput(e) {
     setInput(e.target.value);
   }
 
-  function handleSetNumber() {
-    setNumber(input);
+  function handleSetCaloriesEaten() {
+    setCaloriesEaten(input);
   }
 
   useEffect(() => {
-    localStorage.setItem("number", JSON.stringify(number));
-  }, [number])
+    localStorage.setItem("caloriesEaten", JSON.stringify(caloriesEaten));
+    setCaloriesRatio((caloriesEaten / caloriesTotal) * 100);
+  }, [caloriesEaten])
 
   return (
     <>
@@ -25,13 +30,13 @@ function Budget() {
       <div
         className={Style.ring}
         style={{
-          background: `conic-gradient(black ${number * 3.6}deg, grey 0deg)`,
+          background: `conic-gradient(black ${caloriesRatio * 3.6}deg, grey 0deg)`,
         }}
       >
-        <span className={Style.pValue}>{number}%</span>
+        <span className={Style.pValue}>{caloriesEaten}/{caloriesTotal}</span>
       </div>
       <input type="number" onChange={handleSetInput} />
-      <button onClick={handleSetNumber}>Confirm</button>
+      <button onClick={handleSetCaloriesEaten}>Set Calories Eaten</button>
     </>
   );
 }
