@@ -21,3 +21,11 @@
 .pValue {
   position: relative;
 }
+
+.toolbar {
+  display: flex;
+  justify-content: end;
+  padding: 1rem;
+}
+
+
