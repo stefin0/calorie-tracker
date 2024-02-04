@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
+import useLocalStorage from "../../hooks/useLocalStorage";
 import Style from "./Budget.module.css";
 import Modal from "../Modal/Modal";
 
 function Budget() {
-  const [caloriesEaten, setCaloriesEaten] = useState(() => {
-    return JSON.parse(localStorage.getItem("caloriesEaten")) || "0";
-  });
-  const [caloriesTotal, setCaloriesTotal] = useState(() => {
-    return JSON.parse(localStorage.getItem("bmr")) || "0";
-  });
-  const [caloriesRatio, setCaloriesRatio] = useState();
+  const [caloriesEaten, setCaloriesEaten] = useLocalStorage(
+    "caloriesEaten",
+    "0",
+  );
+  const [caloriesTotal, setCaloriesTotal] = useLocalStorage("bmr", "0");
   const [input, setInput] = useState();
   const [showModal, setShowModal] = useState(false);
+
+  const caloriesRatio = (caloriesEaten / caloriesTotal) * 100;
 
   function handleSetInput(e) {
     setInput(e.target.value);
@@ -20,11 +21,6 @@ function Budget() {
   function handleSetCaloriesEaten() {
     setCaloriesEaten(input);
   }
-
-  useEffect(() => {
-    localStorage.setItem("caloriesEaten", JSON.stringify(caloriesEaten));
-    setCaloriesRatio((caloriesEaten / caloriesTotal) * 100);
-  }, [caloriesEaten]);
 
   function handleSetShowModal() {
     setShowModal((prev) => !prev);
@@ -51,9 +47,10 @@ function Budget() {
       <div className={Style.toolbar}>
         <button onClick={handleSetShowModal}>Add</button>
       </div>
+      <h1>{caloriesRatio}</h1>
 
       {/* MODAL  */}
-      {showModal && <Modal handleSetShowModal={handleSetShowModal}/>}
+      {showModal && <Modal handleSetShowModal={handleSetShowModal} />}
     </>
   );
 }
